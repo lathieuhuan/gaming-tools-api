@@ -1,0 +1,29 @@
+{
+  "name": "gaming-tools-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "2.8.5",
+    "dotenv": "17.2.1",
+    "enka-network-api": "5.0.8",
+    "express": "5.1.0"
+  },
+  "devDependencies": {
+    "@types/cors": "2.8.19",
+    "@types/express": "5.0.3",
+    "@types/node": "20.12.12",
+    "cross-env": "10.1.0",
+    "dotenv-cli": "10.0.0",
+    "nodemon": "3.1.9",
+    "ts-node": "10.9.2",
+    "typescript": "5.5.2"
+  }
+}
