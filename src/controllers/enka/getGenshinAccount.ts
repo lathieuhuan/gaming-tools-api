@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from "express";
 
 import enka from "../../config/enka";
 import { ErrorResponse } from "../../models/ErrorResponse";
+import { logError } from "../../utils/logError";
 
 type Build = {
   character: ICharacter;
@@ -11,14 +12,16 @@ type Build = {
 };
 
 export default function getGenshinAccount(req: Request, res: Response, next: NextFunction) {
-  try {
-    const uid = req.params.uid;
+  const { uid = "" } = req.params;
+  const _uid = Number(uid);
 
-    if (typeof uid !== "string" || isNaN(Number(uid))) {
-      return next(new ErrorResponse(400, "Invalid UID"));
-    }
+  if (uid.length !== 9 || isNaN(_uid)) {
+    return next(new ErrorResponse(400, "Invalid UID"));
+  }
 
-    enka.fetchUser(Number(uid)).then((user) => {
+  enka
+    .fetchUser(_uid)
+    .then((user) => {
       const builds: Build[] = [];
 
       for (const character of user.characters) {
@@ -32,20 +35,18 @@ export default function getGenshinAccount(req: Request, res: Response, next: Nex
       }
 
       res.send({
+        uid: user.uid,
         name: user.nickname,
         level: user.level,
+        worldLevel: user.worldLevel,
         signature: user.signature,
         builds,
+        // enkaProfile: user.enkaProfile,
+        ttl: user.ttl,
       });
+    })
+    .catch((error) => {
+      logError(error);
+      next(new ErrorResponse(500, "Internal Server Error"));
     });
-
-    // res.send({
-    //   name: "name",
-    //   level: 60,
-    //   signature: "user.signature",
-    //   characters: [],
-    // });
-  } catch (error) {
-    next(new ErrorResponse(500, "Internal Server Error"));
-  }
 }
