@@ -6,6 +6,7 @@ import path from "path";
 import checkOrigin from "./middlewares/checkOrigin";
 import errorHandler from "./middlewares/errorHandler";
 import enkaRoute from "./routes/enka-route";
+import cacheRoute from "./routes/cache-route";
 
 // ===== ENV =====
 
@@ -58,5 +59,7 @@ app.listen(port, () => {
 });
 
 app.use("/enka", enkaRoute);
+
+app.use("/cache", cacheRoute);
 
 app.use(errorHandler);
