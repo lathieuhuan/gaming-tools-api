@@ -8,18 +8,18 @@ const enka = new EnkaClient({
 
 enka.cachedAssetsManager.cacheDirectorySetup();
 
-if (process.env.NODE_ENV === "production") {
-  enka.cachedAssetsManager.activateAutoCacheUpdater({
-    // instant: true, // Run the first update check immediately
-    timeout: 12 * 60 * 60 * 1000, // 12 hours interval
-    onUpdateStart: async () => {
-      console.log("Updating Genshin Data...");
-    },
-    onUpdateEnd: async () => {
-      enka.cachedAssetsManager.refreshAllData(); // Refresh memory
-      console.log("Updating Completed!");
-    },
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+//   enka.cachedAssetsManager.activateAutoCacheUpdater({
+//     // instant: true, // Run the first update check immediately
+//     timeout: 24 * 60 * 60 * 1000, // 24 hours interval
+//     onUpdateStart: async () => {
+//       console.log("Updating Genshin Data...");
+//     },
+//     onUpdateEnd: async () => {
+//       enka.cachedAssetsManager.refreshAllData(); // Refresh memory
+//       console.log("Updating Completed!");
+//     },
+//   });
+// }
 
 export default enka;
