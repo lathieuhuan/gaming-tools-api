@@ -25,7 +25,17 @@ export default function getGenshinAccount(req: Request, res: Response, next: Nex
       const builds: Build[] = [];
 
       for (const character of user.characters) {
+        if (character.characterData.isMannequin) {
+          continue;
+        }
+
         const goodCharacter = character.toGOOD();
+
+        if (character.characterData.isTraveler) {
+          const element = character.characterData.element?.name.get("en");
+
+          goodCharacter.key = `${element} Traveler`;
+        }
 
         builds.push({
           character: goodCharacter,

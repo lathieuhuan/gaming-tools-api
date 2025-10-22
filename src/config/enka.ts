@@ -4,6 +4,7 @@ import path from "path";
 const enka = new EnkaClient({
   userAgent: "GIDC",
   cacheDirectory: path.resolve(process.cwd(), ".cache"),
+  requestTimeout: 10000,
 });
 
 enka.cachedAssetsManager.cacheDirectorySetup();
