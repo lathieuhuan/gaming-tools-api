@@ -15,7 +15,7 @@ export default function getGenshinAccount(req: Request, res: Response, next: Nex
   const { uid = "" } = req.params;
   const _uid = Number(uid);
 
-  if (uid.length !== 9 || isNaN(_uid)) {
+  if (uid.length < 9 || isNaN(_uid)) {
     return next(new ErrorResponse(400, "Invalid UID"));
   }
 
